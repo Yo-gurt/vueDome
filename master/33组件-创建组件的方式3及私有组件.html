@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>组件-创建组件的方式3及私有组件</title>
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <mycom3></mycom3>
+    <login></login>
+  </div>
+  <div id="app2">
+    <mycom3></mycom3>
+    <login></login>
+  </div>
+  <!-- 在被控制的#app外面，使用template元素，定义组件的HTML模板结构 -->
+  <template id="tmp1">
+    <div>
+      <h3>这是通过template元素，在外部定义的组件结构，这个方式有代码的提示和高亮</h3>
+      <span>更便于开发</span>
+    </div>
+  </template>
+  <template id="tmp2">
+    <h1>这是私有的login组件</h1>
+  </template>
+  <script>
+    Vue.component('mycom3', {
+      template: '#tmp1'
+    })
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '',
+      }
+    })
+    var vm2 = new Vue({
+      el: '#app2',
+      data: {},
+      methods: {},
+      filters: {},
+      directives: {},
+      components: {
+        //定义实例内部私有组件
+        login: {
+          template: '#tmp2'
+        }
+      },
+
+      beforeCreate() {},
+      created() {},
+      beforemount() {},
+      mounted() {},
+      beforeUpdate() {},
+      updated() {},
+      beforeDestroy() {},
+      destryed() {}
+    })
+  </script>
+</body>
+
+</html>

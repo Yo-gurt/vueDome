@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>03事件修饰符</title>
+  <style>
+    .outer {
+      padding: 40px;
+      background-color: blue;
+    }
+
+    .inner {
+      height: 150px;
+      background-color: pink;
+    }
+  </style>
+  <!--  1.导入Vue包 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+
+    <!-- 使用.stop阻止冒泡 -->
+    <!-- <div class="inner" @click="divHandler">
+      <button type="button" @click.stop="buttonHandler">点击</button>
+    </div> -->
+
+    <!-- .prevent阻止默认事件 -->
+    <!-- <a href="http://www.baidu.com" @click.prevent="linkClick">百度一下</a> -->
+
+    <!-- .capture实现捕获触发事件的机制 -->
+    <!-- <div class="inner" @click.capture="divHandler">
+      <button type="button" @click="buttonHandler">点击</button>
+    </div> -->
+
+    <!-- .self 实现只有点击该元素本身（比如不是子元素）触发时触发回调-->
+    <!-- <div class="inner" @click.self="divHandler">
+      <button type="button" @click.stop="buttonHandler">点击</button>
+    </div> -->
+
+    <!-- .once只触发一次事件处理函数 -->
+    <!-- <a href="http://www.baidu.com" @click.prevent.once="linkClick">百度一下</a> -->
+
+    <!-- .stop与.self的区别 -->
+    <!-- <div class="outer" @click="divHandler2">
+      <div class="inner" @click="divHandler">
+        <button type="button" @click.stop="buttonHandler">点击</button>
+      </div> -->
+
+    <!-- .self只会阻止自己身上的冒泡行为，不会阻止其他元素的冒泡行为 -->
+    <!-- <div class="outer" @click="divHandler2">
+      <div class="inner" @click.self="divHandler">
+        <button type="button" @click="buttonHandler">点击</button>
+      </div>
+    </div> -->
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '',
+      },
+      methods: {
+        divHandler2: function () {
+          console.log("触发了div外的div的点击事件")
+        },
+        divHandler: function () {
+          console.log("触发了div的点击事件")
+        },
+        buttonHandler: function () {
+          console.log("触发了button的点击事件")
+        },
+        linkClick: function () {
+          console.log("触发了a的点击事件")
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

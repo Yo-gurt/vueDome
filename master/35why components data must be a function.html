@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>0</title>
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <counter></counter>
+    <hr>
+    <counter></counter>
+    <counter></counter>
+  </div>
+  <template id="tmp1">
+    <div>
+      <button type="button" @click="increment">+1</button>
+      <h3>{{count}}</h3>
+    </div>
+  </template>
+  <script>
+    var dataObj = {
+      count: 0
+    }
+    //这是一个计数器的组件，身上有一个按钮，每当点击按钮，让data中的count值加1
+    Vue.component('counter', {
+      template: '#tmp1',
+      data: function () {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        increment() {
+          this.count++
+        }
+      }
+    })
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '',
+      }
+    })
+  </script>
+</body>
+
+</html>

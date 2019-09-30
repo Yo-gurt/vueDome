@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>动画-使用第三方类实现动画</title>
+  <!-- 入场brouceIn 离场bounceOut -->
+  <link rel="stylesheet" href="animate.css">
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <!-- 需求：点击按钮，让h3显示，再点击，让h3隐藏 -->
+    <!-- <button type="button" value="toggle" @click="flag=!flag">切换</button>
+    <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+      <h3 v-if="flag">这是h3标题</h3>
+    </transition> -->
+    <!-- 使用 :duration="毫秒值"来统一设置入场和离场的动画时长 -->
+    <!-- <button type="button" value="toggle" @click="flag=!flag">切换</button>
+    <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="200">
+      <h3 v-if="flag" class="animated">这是h3标题</h3>
+    </transition> -->
+    <!-- 使用:duration="{enter:200;leave:400}" 来分别设置入场和离场的时长-->
+    <button type="button" value="toggle" @click="flag=!flag">切换</button>
+    <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration=" { enter: 200,leave: 5000 }">
+      <h3 v-if="flag" class="animated">这是h3标题</h3>
+    </transition>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      }
+    })
+  </script>
+</body>
+
+</html>

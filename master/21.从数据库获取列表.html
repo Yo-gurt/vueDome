@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>从数据库获取列表</title>
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+  <script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.js"></script>
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="http://mockjs.com/dist/mock.js"></script>
+  <script src="../node_modules/mockjs/mock.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">添加品牌</h3>
+      </div>
+      <div class="panel-body form-inline">
+        <label>
+          Name:<input type="text" v-model="name" class="form-control">
+        </label>
+        <input type="button" value="添加" @click="add()" class="btn btn-primary">
+      </div>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Ctime</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in list" :key="item.id">
+          <!-- key只接收字符串或数字 -->
+          <td scope="row">{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.ctime}}</td>
+          <td><a href="" @click.prevent="del(item.id)">删除</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <script>
+    //如果我们通过全局配置了，请求的数据接口根域名，则在每次单独发起http请求的时候，请求的url的路径，应该以相对路径开头，前面不能带/,否则不会启用根路径做拼接
+    Vue.http.options.root = "http://xx/xdx/"
+    //全局启用emulateJSON选项
+    Vue.http.options.emulateJSON = true
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        name: '',
+        list: [ //存放所有汽车品牌的数据
+          {
+            id: 1,
+            name: '五菱红光',
+            ctime: new Date()
+          },
+          {
+            id: 2,
+            name: '上海大众',
+            ctime: new Date()
+          },
+          {
+            id: 3,
+            name: '东风悦达起亚',
+            ctime: new Date()
+          },
+        ]
+      },
+      created() { //当vm实例的data和methods初始化完毕后，vm实例会自动执行created这个生命周期函数
+        this.getAllList()
+      },
+      methods: {
+        add() { //添加品牌列表到后台服务器
+          //分析
+          //1.经过查看数据API接口，发现要发送一个Post请求，this.$http.post
+          //2.this.$http.post()中接收三个参数
+          //2.1第一个参数：要请求的URL地址
+          //2.2 第二个参数：要提交给服务器的数据，要以对象形式提交给服务器{name:this.name}
+          //2.3第三个参数：是一个配置对象，要以哪种表单数据类型提交过去，{emulateJSON:true},以普通表单格式，将数据提交给服务器application/x-www-form-urlencoded
+          //3.在post方法中，使用.then来设置成功的回调函数，如果想要拿到成功的结果，需要result.body
+          /*  this.$http.post("xxx/xx", {
+             name: this.name
+           }, {
+             emulateJSON: true
+           }).then(result => {
+             if (result.body.stastus == 0) {
+               //成功了
+               //添加完成后，只需要手动调用一下getAllList就能刷新列表
+               this.getAllList()
+               //清空name
+               this.name = ''
+             } else {
+               //失败了
+               alert('获取数据失败')
+             }
+           }) */
+          this.$http.post("xxx/xx", {
+            name: this.name
+          }).then(result => {
+            if (result.body.stastus == 0) {
+              //成功了
+              //添加完成后，只需要手动调用一下getAllList就能刷新列表
+              this.getAllList()
+              //清空name
+              this.name = ''
+            } else {
+              //失败了
+              alert('获取数据失败')
+            }
+          })
+        },
+        getAllList() { //获取汽车列表
+          //分析
+          //1.由于已经导入了vue-resouce这个包，所以可以直接通过this.$http来发起数据请求
+          //2.根据接口API文档，知道获取列表的时候，应该发起一个get请求
+          //3.this.$http.get('url').then(function(){})
+          //4.当通过then指定回调函数之后，在回调函数中，可以拿到数据服务器返回的result
+          //5.先判断result.status的值是否等于0，如果等于0，就成功了，可以把result.message赋值给this.list;如果不等于0,可以弹框提醒，获取数据失败
+          this.$http.get('xxx1/xx1').then(result => {
+            //注意：通过$http获取到的数据，都在result.body中放着
+            var result = result.body
+            if (result.status == 0) {
+              //成功了
+              this.list = result.message
+            } else {
+              //失败了
+              alert('获取数据失败')
+            }
+          })
+        },
+        del(id) {
+          this.$http.get('xxx1/xx' + id).then(result => {
+            if (result.body.status === 0) {
+              //删除成功
+              this.getAllList()
+            } else {
+              alert('删除成功')
+            }
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

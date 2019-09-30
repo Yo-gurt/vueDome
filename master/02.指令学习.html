@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>02.v-指令学习</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--  2.创建一个要控制的区域 -->
+    <div id="app">
+      <!-- 使用v-cloak能够解决插值表达式的闪烁问题 -->
+      <p v-cloak>{{ msg }}</p>
+      <h4 v-text="msg"></h4>
+      <!--1.默认 v-text是没有闪烁问题 2.v-text会覆盖元素中原本的内容，但是插值表达式只会替换自己的占位符，不会把整个元素的内容清空-->
+      <p v-cloak>{{ msg2 }}</p>
+      <p v-text="msg2"></p>
+      <p v-html="msg2"></p>
+      <!-- v-bind用于绑定属性的指令，可以写合法的JS表达式，可简写：要绑定的属性 -->
+      <!-- v-on绑定事件 -->
+      <button type="button" :title="mytitle+'新加字'">
+        按钮1
+      </button>
+      <button type="button" v-on:cllick="show">
+        按钮2
+      </button>
+    </div>
+    <!--  1.导入Vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '123',
+          msg2: '<h1>h1标签</h1>',
+          mytitle: '自己定义的标题'
+        },
+        methods: {
+          show: function() {
+            console.log('hello')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

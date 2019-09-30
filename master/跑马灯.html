@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>跑马灯</title>
+  <!--  1.导入Vue包 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <button type="button" @click="run">跑起来</button>
+    <button type="button" @click="stop">停</button>
+    <h4>{{msg}}</h4>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '奔跑吧，向日葵！',
+        intervalid: null,
+      },
+      methods: {
+        run() {
+          if (this.intervalid != null) return;
+          this.intervalid = setInterval(() => {
+            var start = this.msg.substring(0, 1)
+            var end = this.msg.substring(1)
+            this.msg = end + start
+          }, 400)
+        },
+        stop() {
+          clearInterval(this.intervalid)
+          this.intervalid = null
+        }
+      }
+    })
+    //分析：
+    //1.给[跑起来]按钮，绑定一个点击事件v-on 简写@
+    //2.在按钮的事件处理函数中写相关的业务逻辑代码：拿到msg字符串，调用substring来截取字符，把第一个截取出放在最后一个
+    //3.为了实现点击一下按钮实现自动截取功能
+  </script>
+</body>
+
+</html>
