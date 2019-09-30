@@ -9,7 +9,7 @@ vue练习
 ### 15 简单JSONP请求实例
 ### 21 根据后端接口文档，编写get、post请求实现从数据库调用数据
 ### 22-24 vue动画原理 transition标签其属性name tag appear mode
-### 25 [animate.css]: https://daneden.github.io/animate.css/? "这是animate的title内容" 
+### 25 [animate.css]: <https://daneden.github.io/animate.css/?> ("这是animate的title内容")
 
 使用第三方类[annimate.css] 属性enter-active-class leave-active-class duration
 ### 26 使用钩子函数实现半场动画 before-enter enter after-enter进入动画钩子函数 before-leave leave after-leave离开动画钩子函数
