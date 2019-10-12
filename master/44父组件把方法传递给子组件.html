@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>父组件把方法传递给子组件</title>
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <!-- 父组件向子组件传递方法，使用的是事件绑定机制；v-on，当自定义一个事件属性之后，那么子组件就能通过某些方式来调用传递过去的这个方法了-->
+    <com2 v-on:func="show"></com2>
+  </div>
+  <template id="tmp1">
+    <div>
+      <h1>这是子组件</h1>
+      <button type="button" @click="myclick">这是子组件中的按钮-点击它，触发父组件传递过来的func方法</button>
+    </div>
+  </template>
+  <script>
+    //定义了一个字面量类型的组件模板对象
+    var com2 = {
+      data() {
+        return {
+          sonmsg: {
+            name: '小头儿子',
+            age: 6
+          }
+        }
+      },
+      //通过指定Id，表示去加载这个指定Id的template元素中的内容，当作组件的HTML结构
+      template: '#tmp1',
+      methods: {
+        myclick() {
+          //当点击子组件的按钮的时候，如何拿到父组件传递过来的func方法，并调用这个方法呢？
+          //emit触发、调用、发射的意思
+          //this.$emit('func',123,abc)
+          this.$emit('func', this.sonmsg)
+        }
+      }
+    }
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        dataFromSon: null
+      },
+      methods: {
+        /* show(data,data2) {
+          console.log("调用的父组件上的show方法:--"+data+data2)
+        } */
+        show(data) {
+          //console.log(data)
+          this.dataFromSon = data
+        }
+      },
+      components: {
+        com2
+        //com2:com2
+      }
+    })
+  </script>
+</body>
+
+</html>

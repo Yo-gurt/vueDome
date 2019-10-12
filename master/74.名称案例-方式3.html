@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>名称案例</title>
+    <script src="vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 分析 -->
+      <!-- 1.监听到文本框的改变，这样才能知道什么时候去拼接出一个fullname -->
+      <!-- 2.怎么实现监听呢？ -->
+      <input type="text" v-model="firstname" /> +
+      <input type="text" v-model="middlename" /> +
+      <input type="text" v-model="lastname" /> =
+      <input type="text" v-model="fullname" />
+      <p>{{ fullname }}</p>
+      <p>{{ fullname }}</p>
+      <hr />
+      <div>
+        watch与计算属性 都是function 在计算属性内部需要return methods
+        也是function，侧重业务逻辑处理
+      </div>
+      <div>
+        <h3>watch、computed、methods之间的对比</h3>
+        1.watch一个对象，键是需要观察的表达式，值是对应回调函数，主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是computed和methods的结合体；
+        2.computed属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
+        3.methods方法表示一个具体的操作，主要书写业务逻辑；
+      </div>
+    </div>
+    <script>
+      //创建Vue实例，得到ViewModel
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          firstname: '',
+          lastname: '',
+          middlename: ''
+        },
+        methods: {},
+        //在computed中可以定义一些属性，这些属性叫做【计算属性】。计算属性的本质就是一个方法，只是我们在使用这些计算属性的时候，把它们的名称直接当作属性来使用，并不会把计算属性当作方法去调用
+        //注意：计算属性在引用的时候，一定不要加（）调用，直接把它当作普通属性去使用就好了
+        //注意：只要计算属性，这个function内部，所用到的任何data中的数据发生了变化，就会立即重新计算这个计算属性的值
+        //注意：计算属性的求值结果，会被缓存起来方便下次直接使用，如果计算属性方法中，所依赖的任何数据都没有发生过变化，则不会重新计算
+        computed: {
+          fullname: function() {
+            console.log('fullname会执行的次数')
+            return this.firstname + '-' + this.middlename + '-' + this.lastname
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

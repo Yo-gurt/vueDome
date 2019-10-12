@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>webpack引入学习</title>
+  <!--  1.导入Vue包 -->
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <!--  2.创建一个要控制的区域 -->
+  <div id="app">
+    <h2>网页中引用的常见静态资源</h2>
+    <dl>
+      <dt>JS</dt>
+      <dd>-.js .jsx .coffee .ts(TypeScript 类C#语言)</dd>
+      <dt>CSS</dt>
+      <dd>-.css .less .sass(老版) .scss(新版)</dd>
+      <dt>Images</dt>
+      <dd>-.jpg .png .gif .bmp .svg</dd>
+      <dt>字体文件（Fonts）</dt>
+      <dd>-.svg .ttf .eot .woff .woff2</dd>
+      <dt>模板文件</dt>
+      <dd>-.ejs .jade .vue[这是在webpack中定义组件的方式，推荐这么用]</dd>
+    </dl>
+    <h2>网页中引用的静态资源多了的问题</h2>
+    <p>1.网页加载速度慢，因为要发起很多二次请求；</p>
+    <p>2.要处理错综复杂的依赖关系</p>
+    <h2>解决上述问题</h2>
+    <p>1.合并、压缩、精灵图（小图合成一张图）、图片的 Base64 编码（src 指向 Base64 编码后的字符串）</p>
+    <p>2.可以使用 requireJS、也可以使用 webpack 解决各个包之间的复杂依赖关系</p>
+    <h2>webpack是什么</h2>
+    <p>webpack 是前端的一个项目构建工具，它是基于 Node.js 开发出来的</p>
+    <h2>如何完美实现上述解决方案</h2>
+    <p>1.使用 Gulp,是基于 task 任务的；</p>
+    <p>2.使用 Webpack，是基于整个项目进行构建；</p>
+    <dd>借助于webpack这个前端自动化构建工具，可以完美实现资源的合并、打包、压缩、混淆等诸多功能</dd>
+    <dd><a href="https://webpack.js.org">webpack官网</a></dd>
+    <h2>webpack安装的两种方式</h2>
+    <p>1.<b>npm i webpack -g </b>全局安装webpack，这样就能在全局使用webpack的命令</p>
+    <p>2.在项目根目录运行<b> npm i webpack --save-dev </b>安装到项目依赖中</p>
+    <h2>初步使用webpack打包构建列表</h2>
+  </div>
+  <script>
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    })
+  </script>
+
+</body>
+
+</html>

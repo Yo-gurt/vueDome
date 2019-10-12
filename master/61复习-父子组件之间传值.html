@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>复习</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <com1 :parentmsg="msg" @parentfuc="getMsgFromSon"></com1>
+    <div>
+      {{msgFromSon}}
+    </div>
+
+  </div>
+  <template id="tmpl">
+    <div>
+      <h1>这是子元素--{{parentmsg}}</h1>
+      <button type="button" @click="sendMsg">向父组件传递数据</button>
+    </div>
+  </template>
+  <script>
+    var com1 = {
+      template: '#tmpl',
+      data() {
+        return {
+          msg: '这是子组件的data数据'
+        }
+      },
+      props: ['parentmsg'],
+      methods: {
+        sendMsg() {
+          this.$emit('parentfuc', this.msg)
+        }
+      }
+    }
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '这是父组件的data数据',
+        msgFromSon: ''
+      },
+      methods: {
+        getMsgFromSon(data) {
+          this.msgFromSon = data
+
+        }
+      },
+      components: {
+        com1
+      }
+    })
+  </script>
+
+</body>
+
+</html>

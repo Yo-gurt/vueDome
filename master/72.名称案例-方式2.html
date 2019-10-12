@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>名称案例</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 分析 -->
+    <!-- 1.监听到文本框的改变，这样才能知道什么时候去拼接出一个fullname -->
+    <!-- 2.怎么实现监听呢？ -->
+    <input type="text" v-model="fistname"> +
+    <input type="text" v-model="lastname"> =
+    <input type="text" v-model="fullname">
+  </div>
+  <script>
+    //创建Vue实例，得到ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstname: '',
+        lastname: '',
+        fullname: ''
+      },
+      methods: {},
+      //使用这个属性，可以监视data中指定数据的变化，然后触发这个watch中对应的function处理函数
+      watch: {
+        //watch的优势可以监听到非dom元素事件或没有事件函数控制的变化，例如路由的变化
+        //引号可加可不加，包含-需加
+        'fistname': function (newVal) {
+          /* console.log('监视到firstname的变化') */
+          /* this.fullname = this.fistname + '-' + this.lastname */
+          /*  console.log('新值：' + newVal+'---旧值：' + oldVal) */
+          this.fullname = newVal + '-' + this.lastname
+        },
+        'lastname': function (newVal) {
+          this.fullname = this.firstname + '-' + newVal
+        }
+      },
+    })
+  </script>
+
+</body>
+
+</html>
