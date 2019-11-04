@@ -7,7 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <!-- 注意：不推荐直接在这里引用任何包和任何css文件 -->
-  <script src="./main.js"></script>
+  <!-- 因为main中的代码，涉及了ES6的新与法，但是浏览器不识别 -->
+  <!-- 通过webpack这么一个前端构建函数工具，把main.js做了一下处理，生成了一个bundle.js的文件-->
+  <!-- <script src="./main.js"></script> -->
+  <!-- 当使用html-webpack-plugin之后，我们不再需要手动处理bundle.js的引用路径 ，因为这个插件已经帮我们自动创建一个合适的script，并且引用了正确路径-->
+  <!-- <script src="./dist/bundle.js"></script> -->
+  <!-- css会发起二次请求，不推荐此处引用 -->
+  <!-- <link rel="stylesheet" href="./css/index.css"> -->
+  <!--  <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css"> -->
 </head>
 
 <body>
@@ -23,6 +30,8 @@
     <li>这是第9个li</li>
     <li>这是第10个li</li>
   </ul>
+  <div class="box"></div>
+  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
 </body>
 
 </html>
